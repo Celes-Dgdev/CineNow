@@ -1,0 +1,502 @@
+.counter {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
+
+  &:hover {
+    border-color: var(--accent-border);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.hero {
+  position: relative;
+
+  .base,
+  .framework,
+  .vite {
+    inset-inline: 0;
+    margin: 0 auto;
+  }
+
+  .base {
+    width: 170px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .framework,
+  .vite {
+    position: absolute;
+  }
+
+  .framework {
+    z-index: 1;
+    top: 34px;
+    height: 28px;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+      scale(1.4);
+  }
+
+  .vite {
+    z-index: 0;
+    top: 107px;
+    height: 26px;
+    width: auto;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+      scale(0.8);
+  }
+}
+
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  place-content: center;
+  place-items: center;
+  flex-grow: 1;
+
+  @media (max-width: 1024px) {
+    padding: 32px 20px 24px;
+    gap: 18px;
+  }
+}
+
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  text-align: left;
+
+  & > div {
+    flex: 1 1 0;
+    padding: 32px;
+    @media (max-width: 1024px) {
+      padding: 24px 20px;
+    }
+  }
+
+  .icon {
+    margin-bottom: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+#docs {
+  border-right: 1px solid var(--border);
+
+  @media (max-width: 1024px) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 0;
+
+  .logo {
+    height: 18px;
+  }
+
+  a {
+    color: var(--text-h);
+    font-size: 16px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    .button-icon {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      flex: 1 1 calc(50% - 8px);
+    }
+
+    a {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#spacer {
+  height: 88px;
+  border-top: 1px solid var(--border);
+  @media (max-width: 1024px) {
+    height: 48px;
+  }
+}
+
+.peliculas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px;
+  justify-content: center;
+}
+
+.pelicula button.liked {
+  background: #e50914;
+  color: white;
+}
+
+.pelicula {
+  flex: 1 1 200px;
+  max-width: 500px;
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+
+.pelicula img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.pelicula button {
+  border: none;
+  padding: 10px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+input {
+  display: block;
+  width: 300px;
+  max-width: 90%;
+  margin: 20px auto;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(0, 180, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(229, 9, 20, 0.10), transparent 30%),
+    linear-gradient(135deg, #05070d 0%, #0b1020 50%, #05070d 100%);
+  color: #f5f5f5;
+}
+
+/* Contenedor de películas */
+.peliculas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  justify-content: center;
+  padding: 30px 20px;
+}
+
+/* Tarjeta de cada película */
+.pelicula {
+  flex: 1 1 200px;
+  max-width: 260px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(0, 200, 255, 0.25);
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(0, 180, 255, 0.08);
+  backdrop-filter: blur(10px);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.pelicula:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 200, 255, 0.7);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(0, 200, 255, 0.18);
+}
+
+/* Título */
+.pelicula h2 {
+  font-size: 18px;
+  margin: 8px 0 12px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 200, 255, 0.35);
+}
+
+/* Poster */
+.pelicula img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+/* 🎬 Botones de las películas */
+.botones {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.botones button {
+  padding: 9px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: #333;
+  color: white;
+  transition: 0.25s ease;
+}
+
+.botones button:hover {
+  transform: translateY(-2px);
+  background: #555;
+}
+
+.botones button:active {
+  transform: scale(0.97);
+}
+
+/* ❤️ Botón Me gusta */
+.pelicula button.liked {
+  background: #e50914;
+  color: white;
+}
+
+/* 🚪 Botón cerrar cuenta */
+.cerrar-cuenta {
+  margin: 15px auto;
+  display: block;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: #8b0000;
+  color: white;
+  transition: 0.25s ease;
+}
+
+.cerrar-cuenta:hover {
+  background: #e50914;
+  transform: translateY(-2px);
+}
+
+.cerrar-cuenta:active {
+  transform: scale(0.97);
+}
+
+/* 🔐 Formulario de Login */
+.login {
+  width: 320px;
+  max-width: 90%;
+  margin: 60px auto;
+  padding: 30px;
+  background: #1b1b1b;
+  border: 1px solid #333;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* 📝 Título */
+.login h2 {
+  margin-bottom: 25px;
+  color: white;
+}
+
+/* ✍️ Inputs */
+.login input {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  outline: none;
+}
+
+.login input:focus {
+  border-color: #e50914;
+}
+
+/* 🎬 Botones del Login */
+.login button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  background: #e50914;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.login button:hover {
+  background: #ff1a25;
+  transform: translateY(-2px);
+}
+
+.login button:active {
+  transform: scale(0.98);
+}
+
+/* 🔄 Botón Crear cuenta */
+.login button[type="button"] {
+  background: #333;
+}
+
+.login button[type="button"]:hover {
+  background: #555;
+}
+
+/* ❌ Mensaje de error */
+.login .error {
+  color: #ff4d4d;
+  font-size: 14px;
+}
+
+.bienvenida {
+  text-align: center;
+  color: #ccc;
+  font-size: 16px;
+  margin: -20px auto 25px;
+  padding: 0 20px;
+}
+
+/* Descripción */
+.descripcion {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #c9d2df;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Reproductor del tráiler */
+.trailer {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.trailer iframe {
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.15);
+}
+
+.ticks {
+  position: relative;
+  width: 100%;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    border: 5px solid transparent;
+  }
+
+  &::before {
+    left: 0;
+    border-left-color: var(--border);
+  }
+  &::after {
+    right: 0;
+    border-right-color: var(--border);
+  }
+}
+
+
+
+/* =========================
+   📱 RESPONSIVE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .peliculas {
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .pelicula {
+    max-width: 250px;
+  }
+
+  .botones {
+    flex-direction: column;
+  }
+
+  .botones button {
+    width: 100%;
+  }
+
+}
