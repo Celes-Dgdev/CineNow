@@ -1,478 +1,676 @@
-/* ================================
-   CINE NOW - LOGIN
-================================ */
+.counter {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
 
-* {
-  box-sizing: border-box;
+  &:hover {
+    border-color: var(--accent-border);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 }
 
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+.hero {
   position: relative;
 
+  .base,
+  .framework,
+  .vite {
+    inset-inline: 0;
+    margin: 0 auto;
+  }
+
+  .base {
+    width: 170px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .framework,
+  .vite {
+    position: absolute;
+  }
+
+  .framework {
+    z-index: 1;
+    top: 34px;
+    height: 28px;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+      scale(1.4);
+  }
+
+  .vite {
+    z-index: 0;
+    top: 107px;
+    height: 26px;
+    width: auto;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+      scale(0.8);
+  }
+}
+
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  place-content: center;
+  place-items: center;
+  flex-grow: 1;
+
+  @media (max-width: 1024px) {
+    padding: 32px 20px 24px;
+    gap: 18px;
+  }
+}
+
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  text-align: left;
+
+  & > div {
+    flex: 1 1 0;
+    padding: 32px;
+    @media (max-width: 1024px) {
+      padding: 24px 20px;
+    }
+  }
+
+  .icon {
+    margin-bottom: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+#docs {
+  border-right: 1px solid var(--border);
+
+  @media (max-width: 1024px) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 0;
+
+  .logo {
+    height: 18px;
+  }
+
+  a {
+    color: var(--text-h);
+    font-size: 16px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    .button-icon {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      flex: 1 1 calc(50% - 8px);
+    }
+
+    a {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#spacer {
+  height: 88px;
+  border-top: 1px solid var(--border);
+  @media (max-width: 1024px) {
+    height: 48px;
+  }
+}
+
+.peliculas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px;
+  justify-content: center;
+}
+
+.pelicula button.liked {
+  background: #e50914;
+  color: white;
+}
+
+.pelicula {
+  flex: 1 1 200px;
+  max-width: 500px;
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+
+.pelicula img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.pelicula button {
+  border: none;
+  padding: 10px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+input {
+  display: block;
+  width: 300px;
+  max-width: 90%;
+  margin: 20px auto;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
   background:
-    radial-gradient(circle at center, #063b70 0%, #02152d 45%, #010812 100%);
-
-  font-family: Arial, Helvetica, sans-serif;
+    radial-gradient(circle at 20% 10%, rgba(0, 180, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(229, 9, 20, 0.10), transparent 30%),
+    linear-gradient(135deg, #05070d 0%, #0b1020 50%, #05070d 100%);
+  color: #f5f5f5;
 }
 
-/* Brillo azul del fondo */
-
-.login-page::before {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-
-  background: rgba(0, 132, 255, 0.18);
-
-  filter: blur(80px);
-
-  animation: pulseBackground 4s ease-in-out infinite;
+/* Contenedor de películas */
+.peliculas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  justify-content: center;
+  padding: 30px 20px;
 }
 
-/* ================================
-   CAJA PRINCIPAL
-================================ */
+/* Tarjeta de cada película */
+.pelicula {
+  flex: 1 1 200px;
+  max-width: 260px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(0, 200, 255, 0.25);
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(0, 180, 255, 0.08);
+  backdrop-filter: blur(10px);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.pelicula:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 200, 255, 0.7);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(0, 200, 255, 0.18);
+}
+
+/* Título */
+.pelicula h2 {
+  font-size: 18px;
+  margin: 8px 0 12px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 200, 255, 0.35);
+}
+
+/* Poster */
+.pelicula img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+/* 🎬 Botones de las películas */
+.botones {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.botones button {
+  padding: 9px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: #333;
+  color: white;
+  transition: 0.25s ease;
+}
+
+.botones button:hover {
+  transform: translateY(-2px);
+  background: #555;
+}
+
+.botones button:active {
+  transform: scale(0.97);
+}
+
+/* ❤️ Botón Me gusta */
+.pelicula button.liked {
+  background: #e50914;
+  color: white;
+}
+
+/* 🚪 Botón cerrar cuenta */
+.cerrar-cuenta {
+  margin: 15px auto;
+  display: block;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: #8b0000;
+  color: white;
+  transition: 0.25s ease;
+}
+
+.cerrar-cuenta:hover {
+  background: #e50914;
+  transform: translateY(-2px);
+}
+
+.cerrar-cuenta:active {
+  transform: scale(0.97);
+}
+
+/* 🔐 Formulario de Login */
+
+/* =========================
+   🔐 LOGIN + GUSANO AZUL
+   ========================= */
+
 .box {
   position: relative;
-
-  width: 360px;
-  min-height: 170px;
-
-  padding: 4px;
-
-  border-radius: 20px;
-
-  background: #03182f;
-
-  overflow: hidden;
-
-  box-shadow:
-    0 0 20px rgba(0, 119, 255, 0.5);
-
-  animation: boxPulse 3s ease-in-out infinite;
-
-  transition:
-    width 0.5s ease,
-    min-height 0.5s ease;
-}
-/* Cuando se abre el formulario */
-
-.box.open {
-  width: 390px;
-  min-height: 500px;
+  isolation: isolate;
 }
 
-/* ================================
-   BORDE LUMINOSO
-================================ */
+
+/* =========================
+   🐛 BORDE AZUL BASE
+   ========================= */
+
 .box::before {
   content: "";
-
   position: absolute;
+  inset: -3px;
+  border-radius: 22px;
 
-  width: 150%;
-  height: 150%;
+  background: #06345f;
 
-  left: -25%;
-  top: -25%;
+  box-shadow:
+    0 0 5px #006eff,
+    0 0 12px rgba(0, 140, 255, 0.45);
 
-  background: conic-gradient(
-    transparent 0deg,
-    transparent 300deg,
-
-    #005eff 315deg,
-    #00aaff 325deg,
-    #ffffff 335deg,
-    #00aaff 345deg,
-    #005eff 355deg,
-
-    transparent 360deg
-  );
-
-  animation: gusanoAzul 2s linear infinite;
-
-  z-index: 0;
+  z-index: -2;
 }
 
 
+/* =========================
+   🐛 CABEZA DEL GUSANO
+   ========================= */
+/* 🐛 CABEZA DEL GUSANO — MÁS LARGA, LENTA Y BRILLANTE */
+/* ⚡ Punto de luz azul */
 .box::after {
   content: "";
 
   position: absolute;
 
-  inset: 4px;
+  width: 70px;
+  height: 4px;
 
-  border-radius: 16px;
+  border-radius: 999px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #041d3a,
-      #010b18
-    );
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #008cff 30%,
+    #00cfff 65%,
+    #ffffff 100%
+  );
 
-  z-index: 1;
-}
-
-/* ================================
-   INTERIOR
-================================ */
-.login {
-  position: relative;
+  box-shadow:
+    0 0 8px #00cfff,
+    0 0 20px #008cff,
+    0 0 40px rgba(0, 140, 255, 0.9),
+    0 0 70px rgba(0, 100, 255, 0.7);
 
   z-index: 2;
 
-  width: 100%;
-  height: 100%;
+  offset-path: inset(-3px round 22px);
+  offset-distance: 0%;
 
-  border-radius: 16px;
-
-  background: transparent;
-
-  padding: 35px;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  color: white;
+  animation: luzAzul 7s linear infinite;
 }
 
-/* ================================
-   CONTENIDO
-================================ */
+@keyframes luzAzul {
+  to {
+    offset-distance: 100%;
+  }
+}
 
-.loginBx {
+/* =========================
+   🖤 CAJA DEL LOGIN
+   ========================= */
+
+.box .login {
   width: 100%;
+  max-width: none;
+
+  margin: 0;
+  padding: 30px;
+
+  box-sizing: border-box;
+
+  /*
+    Negro + gris metálico.
+    Un poco transparente para que
+    se note profundidad.
+  */
+  background: linear-gradient(
+    145deg,
+    rgba(8, 8, 10, 0.97),
+    rgba(55, 57, 60, 0.88),
+    rgba(12, 13, 15, 0.97)
+  );
+
+  border: 1px solid rgba(220, 225, 230, 0.18);
+
+  border-radius: 19px;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.10),
+    inset 0 -10px 25px rgba(0, 0, 0, 0.25),
+    0 15px 35px rgba(0, 0, 0, 0.65);
+
+  backdrop-filter: blur(12px);
+
   text-align: center;
 }
 
-.loginBx h2 {
-  margin: 0 0 10px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
+/* =========================
+   🎬 TÍTULO
+   ========================= */
 
-  font-size: 28px;
+.box .login h2 {
+  margin: 0;
+
+  color: #f5f5f5;
+
+  cursor: pointer;
+
+  transition:
+    margin-bottom 0.4s ease,
+    text-shadow 0.4s ease,
+    color 0.4s ease;
+}
+
+
+/* =========================
+   👻 FORMULARIO OCULTO
+   ========================= */
+
+.box .form-content {
+  opacity: 0;
+
+  max-height: 0;
+
+  overflow: hidden;
+
+  transform: translateY(-15px);
+
+  transition:
+    opacity 0.4s ease,
+    max-height 0.5s ease,
+    transform 0.4s ease;
+}
+
+
+/* =========================
+   🖱️ HOVER
+   ========================= */
+
+.box:hover .form-content {
+  opacity: 1;
+
+  max-height: 400px;
+
+  transform: translateY(0);
+}
+
+
+.box:hover .login h2 {
+  margin-bottom: 25px;
 
   color: #ffffff;
 
   text-shadow:
-    0 0 8px rgba(0, 153, 255, 0.8),
-    0 0 20px rgba(0, 153, 255, 0.5);
+    0 0 5px #008cff,
+    0 0 15px #008cff,
+    0 0 30px #006eff;
 }
 
-.loginBx h2 span {
-  font-size: 20px;
-}
 
-.subtitulo {
-  margin-bottom: 25px;
+/* =========================
+   ✍️ INPUTS
+   ========================= */
 
-  color: #7fcfff;
-
-  font-size: 14px;
-}
-
-/* ================================
-   PANTALLA INICIAL
-================================ */
-
-.inicio-login {
-  animation: fadeIn 0.6s ease;
-}
-
-.inicio-login h2 {
-  font-size: 34px;
-}
-
-.inicio-login p {
-  color: #8ed8ff;
-  margin-bottom: 30px;
-}
-
-/* ================================
-   INPUTS
-================================ */
-
-.loginBx input[type="text"],
-.loginBx input[type="password"] {
+.box .login input {
   width: 100%;
 
-  padding: 14px 16px;
+  box-sizing: border-box;
 
-  margin: 8px 0;
+  margin: 10px 0;
 
-  border: 1px solid rgba(0, 153, 255, 0.35);
+  padding: 12px;
 
-  border-radius: 10px;
+  border: 1px solid rgba(180, 185, 190, 0.25);
+
+  border-radius: 8px;
+
+  /*
+    Negro metálico.
+  */
+  background: linear-gradient(
+    145deg,
+    rgba(5, 6, 8, 0.95),
+    rgba(30, 32, 35, 0.85)
+  );
+
+  color: #ffffff;
 
   outline: none;
 
-  background: rgba(0, 30, 60, 0.8);
-
-  color: white;
-
-  font-size: 15px;
-
-  transition: 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
 }
 
-.loginBx input::placeholder {
-  color: #78a8c7;
-}
 
-.loginBx input[type="text"]:focus,
-.loginBx input[type="password"]:focus {
-  border-color: #00b7ff;
+.box .login input:focus {
+  border-color: #00cfff;
+
+  background: rgba(10, 12, 15, 0.98);
 
   box-shadow:
-    0 0 8px rgba(0, 183, 255, 0.6),
-    0 0 20px rgba(0, 119, 255, 0.3);
+    0 0 5px #008cff,
+    0 0 15px rgba(0, 140, 255, 0.5);
 }
 
-/* ================================
-   BOTONES
-================================ */
 
-.loginBx button,
-.loginBx input[type="submit"] {
+/* =========================
+   🎬 BOTÓN PRINCIPAL
+   ========================= */
+
+.box .login button {
   width: 100%;
-
-  padding: 14px;
 
   margin-top: 12px;
 
-  border: none;
+  padding: 11px;
 
-  border-radius: 10px;
+  border: 1px solid rgba(220, 225, 230, 0.18);
 
-  cursor: pointer;
+  border-radius: 8px;
+
+  background: linear-gradient(
+    145deg,
+    #3a3d41,
+    #181a1d
+  );
+
+  color: white;
 
   font-size: 15px;
 
   font-weight: bold;
 
-  color: white;
-
-  background:
-    linear-gradient(
-      90deg,
-      #0066cc,
-      #00aaff,
-      #0066cc
-    );
-
-  background-size: 200% 100%;
-
-  box-shadow:
-    0 0 10px rgba(0, 153, 255, 0.4);
+  cursor: pointer;
 
   transition:
+    background 0.25s ease,
     transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background-position 0.4s ease;
+    box-shadow 0.25s ease;
 }
 
-.loginBx button:hover,
-.loginBx input[type="submit"]:hover {
+
+.box .login button:hover {
+  background: linear-gradient(
+    145deg,
+    #60646a,
+    #25282c
+  );
+
   transform: translateY(-2px);
 
-  background-position: 100% 0;
+  box-shadow:
+    0 0 8px rgba(220, 225, 230, 0.35),
+    0 0 20px rgba(180, 185, 190, 0.20);
+}
+
+
+.box .login button:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================
+   🔄 BOTÓN CREAR CUENTA
+   ========================= */
+
+.box .login button[type="button"] {
+  background: rgba(20, 21, 23, 0.90);
+
+  border: 1px solid rgba(180, 185, 190, 0.15);
+}
+
+
+.box .login button[type="button"]:hover {
+  background: rgba(55, 57, 60, 0.95);
 
   box-shadow:
-    0 0 12px rgba(0, 183, 255, 0.8),
-    0 0 25px rgba(0, 119, 255, 0.5);
-}
-
-.loginBx button:active,
-.loginBx input[type="submit"]:active {
-  transform: scale(0.97);
-}
-
-/* Botón secundario */
-
-.loginBx .secondary-button {
-  background: transparent;
-
-  border: 1px solid rgba(0, 174, 255, 0.6);
-
-  color: #8ed8ff;
-
-  box-shadow: none;
-}
-
-.loginBx .secondary-button:hover {
-  background: rgba(0, 153, 255, 0.12);
-
-  box-shadow:
-    0 0 12px rgba(0, 183, 255, 0.4);
-}
-
-/* ================================
-   ENLACES
-================================ */
-
-.group {
-  margin-top: 20px;
-
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 10px;
-}
-
-.group a {
-  color: #72cfff;
-
-  font-size: 13px;
-
-  text-decoration: none;
-
-  transition: 0.3s ease;
-}
-
-.group a:hover {
-  color: white;
-
-  text-shadow:
-    0 0 8px #00b7ff;
-}
-
-/* ================================
-   ERROR
-================================ */
-
-.error {
-  color: #ff6b8a;
-
-  font-size: 13px;
-
-  margin: 10px 0;
-
-  text-shadow:
-    0 0 5px rgba(255, 50, 100, 0.4);
-}
-
-/* ================================
-   ANIMACIONES
-================================ */
-
-
-@keyframes gusanoAzul {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+    0 0 10px rgba(180, 185, 190, 0.15);
 }
 
 
-@keyframes pulseBackground {
-  0%,
-  100% {
-    transform: scale(0.9);
+/* =========================
+   ❌ ERROR
+   ========================= */
 
-    opacity: 0.5;
-  }
+.box .login .error {
+  color: #ff4d4d;
 
-  50% {
-    transform: scale(1.2);
-
-    opacity: 1;
-  }
+  font-size: 14px;
 }
 
-@keyframes boxPulse {
-  0%,
-  100% {
-    box-shadow:
-      0 0 15px rgba(0, 132, 255, 0.35);
+/* =========================
+   📱 RESPONSIVE
+   ========================= */
+
+@media (max-width: 600px) {
+
+  h1 {
+    font-size: 32px;
   }
 
-  50% {
-    box-shadow:
-      0 0 30px rgba(0, 174, 255, 0.75),
-      0 0 60px rgba(0, 100, 255, 0.35);
-  }
-}
-
-@keyframes borderMove {
-  0% {
-    background-position: 0% 50%;
+  .peliculas {
+    padding: 15px;
+    gap: 20px;
   }
 
-  50% {
-    background-position: 100% 50%;
+  .pelicula {
+    max-width: 250px;
   }
 
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes borderGlow {
-  0% {
-    background-position: 0% 50%;
+  .botones {
+    flex-direction: column;
   }
 
-  50% {
-    background-position: 100% 50%;
+  .botones button {
+    width: 100%;
   }
 
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-
-    transform: translateY(15px);
-  }
-
-  to {
-    opacity: 1;
-
-    transform: translateY(0);
-  }
-}
-
-/* ================================
-   CELULAR
-================================ */
-
-@media (max-width: 500px) {
-  .box {
-    width: 90%;
-    min-height: 170px;
-  }
-
-  .box.open {
-    width: 92%;
-    min-height: 480px;
-  }
-
-  .login {
-    padding: 25px;
-  }
-
-  .loginBx h2 {
-    font-size: 24px;
-  }
 }

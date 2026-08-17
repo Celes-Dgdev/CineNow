@@ -1,165 +1,129 @@
 import { useState } from "react";
 
 function Login({ onLogin }) {
+
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [modoRegistro, setModoRegistro] = useState(false);
-  const [formularioAbierto, setFormularioAbierto] = useState(false);
-
-  const manejarSubmit = (e) => {
-    e.preventDefault();
-    setError("");
-
-    if (!usuario.trim() || !password.trim()) {
-      setError("Debes escribir usuario y contraseña");
-      return;
-    }
-
-    if (modoRegistro) {
-      localStorage.setItem("usuario", usuario);
-      localStorage.setItem("password", password);
-
-      alert(`🎬 ¡Creaste tu cuenta! ¡Bienvenido ${usuario} a CineNow!`);
-
-      setModoRegistro(false);
-      setFormularioAbierto(true);
-      setPassword("");
-    } else {
-      const usuarioGuardado = localStorage.getItem("usuario");
-      const passwordGuardada = localStorage.getItem("password");
-
-      if (
-        usuario === usuarioGuardado &&
-        password === passwordGuardada
-      ) {
-        alert(`🎬 ¡Bienvenido de nuevo a CineNow, ${usuario}!`);
-
-        onLogin();
-      } else {
-        setError("Usuario o contraseña incorrectos");
-      }
-    }
-  };
-
-  const abrirRegistro = () => {
-    setModoRegistro(true);
-    setFormularioAbierto(true);
-    setError("");
-  };
-
-  const abrirLogin = () => {
-    setModoRegistro(false);
-    setFormularioAbierto(true);
-    setError("");
-  };
 
   return (
-    <div className="login-page">
-      <div className={`box ${formularioAbierto ? "open" : ""}`}>
-        <div className="login">
-          <div className="loginBx">
+    <div className="box">
 
-            {!formularioAbierto ? (
-              <div className="inicio-login">
-                <h2>🎬 CineNow!</h2>
+      <form
 
-                <p>Películas en estreno</p>
+  
+        className="login"
+        onSubmit={(e) => {
+          e.preventDefault();
 
-                <button
-                  type="button"
-                  onClick={abrirLogin}
-                >
-                  Iniciar sesión
-                </button>
+          if (modoRegistro) {
 
-                <button
-                  type="button"
-                  className="secondary-button"
-                  onClick={abrirRegistro}
-                >
-                  Crear cuenta
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={manejarSubmit}>
-                <h2>
-                  <span>🎬</span>
-                  {modoRegistro
-                    ? "Crear cuenta"
-                    : "CineNow"}
-                  <span>💙</span>
-                </h2>
+            if (!usuario.trim() || !password.trim()) {
+              setError("Debes escribir un usuario y una contraseña");
+              return;
+            }
 
-                <p className="subtitulo">
-                  {modoRegistro
-                    ? "Únete a CineNow"
-                    : "Bienvenido de nuevo"}
-                </p>
+            localStorage.setItem("usuario", usuario);
+            localStorage.setItem("password", password);
 
-                <input
-                  type="text"
-                  placeholder="Usuario"
-                  value={usuario}
-                  onChange={(e) =>
-                    setUsuario(e.target.value)
-                  }
-                />
+            alert(
+              `🎬 ¡Creaste tu cuenta! ¡Bienvenido ${usuario} a CineNow!`
+            );
 
-                <input
-                  type="password"
-                  placeholder="Contraseña"
-                  value={password}
-                  onChange={(e) =>
-                    setPassword(e.target.value)
-                  }
-                />
+            setError("");
+            setModoRegistro(false);
 
-                {error && (
-                  <p className="error">
-                    {error}
-                  </p>
-                )}
+          } else {
 
-                <input
-                  type="submit"
-                  value={
-                    modoRegistro
-                      ? "Registrarse"
-                      : "Entrar"
-                  }
-                />
+            const usuarioGuardado =
+              localStorage.getItem("usuario");
 
-                <div className="group">
-                  {!modoRegistro && (
-                    <a href="#">
-                      ¿Olvidaste tu contraseña?
-                    </a>
-                  )}
+            const passwordGuardada =
+              localStorage.getItem("password");
 
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
+            if (
+              usuario === usuarioGuardado &&
+              password === passwordGuardada
+            ) {
 
-                      if (modoRegistro) {
-                        abrirLogin();
-                      } else {
-                        abrirRegistro();
-                      }
-                    }}
-                  >
-                    {modoRegistro
-                      ? "Ya tengo una cuenta"
-                      : "Crear cuenta"}
-                  </a>
-                </div>
-              </form>
-            )}
+              alert(
+                `🎬 ¡Bienvenido de nuevo a CineNow, ${usuario}!`
+              );
 
-          </div>
+              setError("");
+              onLogin();
+
+            } else {
+
+              setError("Usuario o contraseña incorrectos");
+
+            }
+          }
+        }}
+      >
+<h1>
+CineNow!
+</h1>
+<p>¡Bienvenido a mi App de películas en estreno.</p>
+        {/* TÍTULO */}
+        <h2>
+          {modoRegistro
+            ? "Crear cuenta"
+            : "Iniciar sesión"}
+        </h2>
+
+        {/* TODO EL FORMULARIO */}
+        <div className="form-content">
+
+          <input
+            type="text"
+            placeholder="Usuario"
+            value={usuario}
+            onChange={(e) => {
+              setUsuario(e.target.value);
+              setError("");
+            }}
+          />
+
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError("");
+            }}
+          />
+
+          {error && (
+            <p className="error">
+              {error}
+            </p>
+          )}
+
+          <button type="submit">
+            {modoRegistro
+              ? "Registrarse"
+              : "Entrar"}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setModoRegistro(!modoRegistro);
+              setError("");
+            }}
+          >
+            {modoRegistro
+              ? "Ya tengo una cuenta"
+              : "Crear una cuenta"}
+          </button>
+
         </div>
-      </div>
+
+      </form>
+
     </div>
   );
 }
