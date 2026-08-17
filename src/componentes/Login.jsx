@@ -1,46 +1,31 @@
 import { useState } from "react";
 
-function Login ({ onLogin }) {
-
-  // 👤 Guarda el usuario que escribe la persona
+function Login({ onLogin }) {
   const [usuario, setUsuario] = useState("");
-
-  // 🔒 Guarda la contraseña
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [modoRegistro, setModoRegistro] = useState(false);
+  const [formularioAbierto, setFormularioAbierto] = useState(false);
 
-  // ❌ Guarda el mensaje de error del login
-const [error, setError] = useState("");
-
-const [modoRegistro, setModoRegistro] = useState(false);
-
-  return (
-    // creamos un formulario de login con inputs para usuario y contraseña
-    // y un botón para enviar el formulario
-
-   <form
-  className="login"
-  onSubmit={(e) => {
+  const manejarSubmit = (e) => {
     e.preventDefault();
+    setError("");
+
+    if (!usuario.trim() || !password.trim()) {
+      setError("Debes escribir usuario y contraseña");
+      return;
+    }
 
     if (modoRegistro) {
-
-      // 📝 Comprobamos que los campos tengan información
-      if (!usuario.trim() || !password.trim()) {
-        setError("Debes escribir un usuario y una contraseña");
-        return;
-      }
-
-      // 📝 Guardamos el usuario y contraseña
       localStorage.setItem("usuario", usuario);
       localStorage.setItem("password", password);
 
       alert(`🎬 ¡Creaste tu cuenta! ¡Bienvenido ${usuario} a CineNow!`);
 
       setModoRegistro(false);
-
+      setFormularioAbierto(true);
+      setPassword("");
     } else {
-
-      // 🔐 Recuperamos los datos guardados
       const usuarioGuardado = localStorage.getItem("usuario");
       const passwordGuardada = localStorage.getItem("password");
 
@@ -48,59 +33,135 @@ const [modoRegistro, setModoRegistro] = useState(false);
         usuario === usuarioGuardado &&
         password === passwordGuardada
       ) {
-
         alert(`🎬 ¡Bienvenido de nuevo a CineNow, ${usuario}!`);
 
         onLogin();
-
       } else {
-
         setError("Usuario o contraseña incorrectos");
-
       }
     }
-  }}
-  
->
-  <h2>
-    {modoRegistro ? "Crear cuenta" : "Iniciar sesión"}
-  </h2>
+  };
 
-  {/* 👤 Input del usuario */}
-  <input
-    type="text"
-    placeholder="Usuario"
-    value={usuario}
-    onChange={(e) => setUsuario(e.target.value)}
-  />
+  const abrirRegistro = () => {
+    setModoRegistro(true);
+    setFormularioAbierto(true);
+    setError("");
+  };
 
-  {/* 🔒 Input de contraseña */}
-  <input
-    type="password"
-    placeholder="Contraseña"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-  />
+  const abrirLogin = () => {
+    setModoRegistro(false);
+    setFormularioAbierto(true);
+    setError("");
+  };
 
-  {/* ❌ Mostramos el error si existe */}
-  {error && <p className="error">{error}</p>}
+  return (
+    <div className="login-page">
+      <div className={`box ${formularioAbierto ? "open" : ""}`}>
+        <div className="login">
+          <div className="loginBx">
 
-  {/* 🎬 Botón principal */}
-  <button>
-    {modoRegistro ? "Registrarse" : "Entrar"}
-  </button>
+            {!formularioAbierto ? (
+              <div className="inicio-login">
+                <h2>🎬 CineNow!</h2>
 
-  {/* 🔄 Cambiar entre login y registro */}
-  <button
-    type="button"
-    onClick={() => setModoRegistro(!modoRegistro)}
-  >
-    {modoRegistro
-      ? "Ya tengo una cuenta"
-      : "Crear una cuenta"}
-  </button>
+                <p>Películas en estreno</p>
 
-</form> );
+                <button
+                  type="button"
+                  onClick={abrirLogin}
+                >
+                  Iniciar sesión
+                </button>
+
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={abrirRegistro}
+                >
+                  Crear cuenta
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={manejarSubmit}>
+                <h2>
+                  <span>🎬</span>
+                  {modoRegistro
+                    ? "Crear cuenta"
+                    : "CineNow"}
+                  <span>💙</span>
+                </h2>
+
+                <p className="subtitulo">
+                  {modoRegistro
+                    ? "Únete a CineNow"
+                    : "Bienvenido de nuevo"}
+                </p>
+
+                <input
+                  type="text"
+                  placeholder="Usuario"
+                  value={usuario}
+                  onChange={(e) =>
+                    setUsuario(e.target.value)
+                  }
+                />
+
+                <input
+                  type="password"
+                  placeholder="Contraseña"
+                  value={password}
+                  onChange={(e) =>
+                    setPassword(e.target.value)
+                  }
+                />
+
+                {error && (
+                  <p className="error">
+                    {error}
+                  </p>
+                )}
+
+                <input
+                  type="submit"
+                  value={
+                    modoRegistro
+                      ? "Registrarse"
+                      : "Entrar"
+                  }
+                />
+
+                <div className="group">
+                  {!modoRegistro && (
+                    <a href="#">
+                      ¿Olvidaste tu contraseña?
+                    </a>
+                  )}
+
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+
+                      if (modoRegistro) {
+                        abrirLogin();
+                      } else {
+                        abrirRegistro();
+                      }
+                    }}
+                  >
+                    {modoRegistro
+                      ? "Ya tengo una cuenta"
+                      : "Crear cuenta"}
+                  </a>
+                </div>
+              </form>
+            )}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Login;
